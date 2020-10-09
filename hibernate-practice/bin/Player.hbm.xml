@@ -1,0 +1,9 @@
+<?xml version="1.0"?>
+<hibernate-mapping>
+    <class name="com.hibernate.table.Player" table="player">
+        <id name="id" type="int">
+            <column name="_id" />
+            <generator class="identity" />
+        </id>
+    </class>
+</hibernate-mapping>

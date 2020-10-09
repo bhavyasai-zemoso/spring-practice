@@ -30,7 +30,6 @@ public class EagerLazyDemo {
 		
 			session.close();
 
-			System.out.println(professor.getCourses());
 		}
 		finally {
 			
