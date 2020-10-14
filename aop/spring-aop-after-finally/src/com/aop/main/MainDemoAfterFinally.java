@@ -9,7 +9,7 @@ import com.aop.config.AopConfig;
 import com.aop.dao.AccountDAO;
 
 
-public class MainDemoAfterThrowing {
+public class MainDemoAfterFinally {
 
 	public static void main(String[] args) {
 		
@@ -21,7 +21,7 @@ public class MainDemoAfterThrowing {
 			accounts=accountDAO.findAccounts(flag);
 		}
 		catch(Exception e) {
-			System.out.println("caught exception "+e);
+			System.out.println("caught exception in main block "+e);
 		}
 		System.out.println("in main block "+accounts);
 		context.close();

@@ -3,6 +3,7 @@ package com.aop.aspect;
 import java.util.List;
 
 import org.aspectj.lang.JoinPoint;
+import org.aspectj.lang.annotation.After;
 import org.aspectj.lang.annotation.AfterReturning;
 import org.aspectj.lang.annotation.AfterThrowing;
 import org.aspectj.lang.annotation.Aspect;
@@ -16,6 +17,14 @@ import org.springframework.stereotype.Component;
 @Order(3)
 public class AccountAspect {
 
+	@After("execution(* com.aop.dao.AccountDAO.findAccounts(..))")
+	public void afterFinallyFindAccountsAdvice(JoinPoint theJoinPoint) {
+
+		String method = theJoinPoint.getSignature().toShortString();
+		System.out.println("Executing @After (finally) on method: " + method);
+	
+	}
+	
 	@AfterThrowing(pointcut="execution(* com.aop.dao.AccountDAO.findAccounts(..))",throwing="exception")
 	public void afterThrowingFindAccountsAdvice(JoinPoint theJoinPoint,Throwable exception){
 		String method = theJoinPoint.getSignature().toString();
