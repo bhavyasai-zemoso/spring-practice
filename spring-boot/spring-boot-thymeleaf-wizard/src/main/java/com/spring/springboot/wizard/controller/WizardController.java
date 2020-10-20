@@ -41,7 +41,7 @@ public class WizardController {
 	
 	
 	
-	@GetMapping("list")
+	@GetMapping("/list")
 	
 	public String listWizards(Model theModel) {
 		
@@ -87,21 +87,6 @@ public class WizardController {
 		
 	}
 	
-	
-	@ModelAttribute("singleSelectAllValues")
-    public String[] getSingleSelectAllValues() {
-        return new String[] {"First", "Last"};
-    }
-	
-	@GetMapping(value = "/first")
-    public String getCitiesByPopulation(Model theModel) {
-		List<Wizard> wizards;
-	
-		wizards = wizardService.findAllByOrderByLastNameAsc();
-		
-		theModel.addAttribute("wizards", wizards);
-		return "redirect:/wizards/list";
-    }
 
 }
 

@@ -13,18 +13,6 @@
 
 <body>
 
-		<form action="#" th:action="@{/wizards/first}">
-		<p>Sort By</p>
-    		<select class="form-control">
-    			<option th:each="dropdownValue: ${singleSelectAllValues}"
-    					th:value="${dropdownValue}"
-    					th:text="${dropdownValue}" ></option>
-    		</select>    	
-	</form>
-
-
-
-
 			
 <div class="container">
 
@@ -80,7 +68,11 @@
 			</tr>
 		</tbody>		
 	</table>
+	<form action="#" th:action="@{/logout}" method="POST">
 	
+		<input type="submit" value="Logout" class="btn btn-outline-primary mt-2" />
+	
+	</form>
 </div>
 	
 </body>
