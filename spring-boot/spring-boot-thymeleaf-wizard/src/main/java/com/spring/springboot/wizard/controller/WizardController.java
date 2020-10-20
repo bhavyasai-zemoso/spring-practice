@@ -1,13 +1,21 @@
 package com.spring.springboot.wizard.controller;
 
+
 import java.util.List;
 
+import javax.validation.Valid;
+
+import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.spring.springboot.wizard.entity.Wizard;
@@ -23,12 +31,22 @@ public class WizardController {
 		wizardService = theWizardService;
 	}
 	
-
-	@GetMapping("/list")
+	@InitBinder
+	public void initBinder(WebDataBinder dataBinder) {
+		
+		StringTrimmerEditor stringTrimmerEditor = new StringTrimmerEditor(true);
+		
+		dataBinder.registerCustomEditor(String.class, stringTrimmerEditor);
+	}
+	
+	
+	
+	@GetMapping("list")
+	
 	public String listWizards(Model theModel) {
 		
-		List<Wizard> theWizards = wizardService.findAll();
-		theModel.addAttribute("wizards", theWizards);
+		List<Wizard> wizards = wizardService.findAll();
+		theModel.addAttribute("wizards", wizards);
 		return "wizards/list-wizards";
 	}
 	
@@ -50,12 +68,16 @@ public class WizardController {
 	
 	
 	@PostMapping("/save")
-	public String saveWizard(@ModelAttribute("wizard") Wizard theWizard) {
-	
+	public String saveWizard(@Valid @ModelAttribute("wizard") Wizard theWizard,BindingResult theBindingResult) {
+		System.out.println(theBindingResult);
+		if (theBindingResult.hasErrors()) {
+			return "wizards/wizard-form";
+		}
+		else {
 		wizardService.save(theWizard);
 		return "redirect:/wizards/list";
+		}
 	}
-	
 	
 	@PostMapping("/delete")
 	public String delete(@RequestParam("wizardId") int theId) {
@@ -65,6 +87,22 @@ public class WizardController {
 		
 	}
 	
+	
+	@ModelAttribute("singleSelectAllValues")
+    public String[] getSingleSelectAllValues() {
+        return new String[] {"First", "Last"};
+    }
+	
+	@GetMapping(value = "/first")
+    public String getCitiesByPopulation(Model theModel) {
+		List<Wizard> wizards;
+	
+		wizards = wizardService.findAllByOrderByLastNameAsc();
+		
+		theModel.addAttribute("wizards", wizards);
+		return "redirect:/wizards/list";
+    }
+
 }
 
 

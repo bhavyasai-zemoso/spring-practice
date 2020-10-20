@@ -5,7 +5,6 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.spring.springboot.wizard.dao.WizardRepository;
 import com.spring.springboot.wizard.entity.Wizard;
 
@@ -21,7 +20,7 @@ public class WizardServiceImpl implements WizardService {
 	
 	@Override
 	public List<Wizard> findAll() {
-		return wizardRepository.findAllByOrderByLastNameAsc();
+		return wizardRepository.findAll();
 	}
 
 	@Override
@@ -29,18 +28,10 @@ public class WizardServiceImpl implements WizardService {
 		Optional<Wizard> result = wizardRepository.findById(theId);
 		
 		Wizard theWizard = null;
-		
-		if (result.isPresent()) {
 			theWizard = result.get();
-		}
-		else {
-
-			throw new RuntimeException("Did not find wizard id - " + theId);
-		}
-		
 		return theWizard;
 	}
-
+	 
 	@Override
 	public void save(Wizard theWizard) {
 		wizardRepository.save(theWizard);
@@ -51,6 +42,23 @@ public class WizardServiceImpl implements WizardService {
 		wizardRepository.deleteById(theId);
 	}
 
+
+	@Override
+	public List<Wizard> findAllByOrderByLastNameDesc() {
+		
+		return wizardRepository.findAllByOrderByLastNameDesc();
+	}
+
+	@Override
+	public List<Wizard> findAllByOrderByLastNameAsc() {
+		return wizardRepository.findAllByOrderByLastNameAsc();
+	}
+
+
+
+	
+
+	
 }
 
 

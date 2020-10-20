@@ -7,6 +7,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name="wizard")
@@ -18,12 +20,17 @@ public class Wizard {
 	private int id;
 	
 	@NotNull(message="required")
+	@Size(min = 0, max = 30)
 	@Column(name="first_name")
 	private String firstName;
 	
+	@NotNull(message="required")
 	@Column(name="last_name")
+	@Size(min = 0, max = 30)
 	private String lastName;
 	
+	@NotNull(message="required")
+	@Pattern(regexp="^[a-zA-Z0-9+.-]+@[a-zA-Z0-9.-]+$", message="invalid email")
 	@Column(name="email")
 	private String email;
 	
@@ -31,7 +38,7 @@ public class Wizard {
 	public Wizard() {
 		
 	}
-	
+	 
 	public Wizard(int id, String firstName, String lastName, String email) {
 		this.id = id;
 		this.firstName = firstName;
@@ -46,7 +53,6 @@ public class Wizard {
 		this.email = email;
 	}
 
-	// define getter/setter
 	
 	public int getId() {
 		return id;

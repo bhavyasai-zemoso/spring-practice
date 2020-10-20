@@ -13,17 +13,27 @@
 
 <body>
 
+		<form action="#" th:action="@{/wizards/first}">
+		<p>Sort By</p>
+    		<select class="form-control">
+    			<option th:each="dropdownValue: ${singleSelectAllValues}"
+    					th:value="${dropdownValue}"
+    					th:text="${dropdownValue}" ></option>
+    		</select>    	
+	</form>
+
+
+
+
+			
 <div class="container">
 
 	<h3>Wizard Directory</h3>
 	<hr>
 	
-	<a th:href="@{/wizards/showFormForAdd}"
-		class="btn btn-primary btn-sm mb-3">
-		Add Wizard
-	</a>
+	<a th:href="@{/wizards/showFormForAdd}" class="btn btn-primary btn-sm mb-3"> Add Wizard </a>
 	
-	
+
 	<table class="table table-bordered table-striped">
 		<thead class="thead-dark">
 			<tr>
@@ -45,14 +55,15 @@
 				<div class="row">
 				
 					<div class="col-small">
-					
-					<form action="#" th:action="@{/wizards/showFormForUpdate}" method="POST">
-					
-						<input type="hidden" name="wizardId" th:value="${tempWizard.id}" />						
-						<button type="submit" class="btn btn-info btn-sm ml-3 mr-1">Update</button>
 
-					</form>
-					</div>
+								<form action="#" th:action="@{/wizards/showFormForUpdate}" method="POST">
+
+
+									<input type="hidden" name="wizardId" th:value="${tempWizard.id}" />
+									<button type="submit" class="btn btn-info btn-sm ml-3 mr-1">Update</button>
+
+								</form>
+							</div>
 					
 					<div class="col-small">				
 					<form action="#" th:action="@{/wizards/delete}" method="POST">
